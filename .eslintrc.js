@@ -10,8 +10,7 @@ module.exports = {
     'unused-imports'
   ],
   extends: [
-    'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
+    'plugin:@typescript-eslint/recommended'
   ],
   root: true,
   env: {
@@ -59,13 +58,6 @@ module.exports = {
       {
         "before": false,
         "after": true
-      }
-    ],
-    "prettier/prettier": [
-      "error",
-      {
-        "semi": false,
-        "trailingComma": "none"
       }
     ],
   },

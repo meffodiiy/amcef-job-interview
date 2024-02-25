@@ -1,5 +1,6 @@
 import { User } from '@prisma/client'
 
 export type JwtStrategyPayload = {
-  userId: User['id']
+  sub: User['id']
+  username: User['username']
 }

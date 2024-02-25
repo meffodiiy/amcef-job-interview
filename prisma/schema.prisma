@@ -14,15 +14,15 @@ datasource db {
 }
 
 model User {
-  id        Int        @id @default(autoincrement())
-  username  String     @unique
-  password  String
+  id       Int    @id @default(autoincrement())
+  username String @unique
+  password String
 
-  TodoLists TodoList[]
-  Todos     Todo[]
+  todoLists TodoListsOnUsers[]
+  todos     Todo[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
 
   @@map("users")
 }
@@ -30,15 +30,24 @@ model User {
 model TodoList {
   id       Int    @id @default(autoincrement())
   name     String @unique
-  author   User   @relation(fields: [authorId], references: [id])
-  authorId Int
 
-  Todos    Todo[]
+  users TodoListsOnUsers[]
+  todos Todo[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
 
   @@map("todo_lists")
+}
+
+model TodoListsOnUsers {
+  user        User     @relation(fields: [userId], references: [id])
+  userId      Int
+  todoList    TodoList @relation(fields: [todoListsId], references: [id])
+  todoListsId Int
+
+  @@id([userId, todoListsId])
+  @@map("todo_lists_on_users")
 }
 
 model Todo {
@@ -48,9 +57,9 @@ model Todo {
   deadline DateTime
   status   TodoStatus
 
-  author   User       @relation(fields: [authorId], references: [id])
+  author   User     @relation(fields: [authorId], references: [id])
   authorId Int
-  list     TodoList   @relation(fields: [listId], references: [id])
+  list     TodoList @relation(fields: [listId], references: [id])
   listId   Int
 
   createdAt DateTime @default(now())
