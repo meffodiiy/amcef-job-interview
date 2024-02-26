@@ -18,7 +18,9 @@ import { UpdateTodoListDto } from './dto/update-todo-list.dto'
 import { RequestWithUser } from '../shared.type'
 import { SkipAuth } from '../auth/decorators/skip-auth.decorator'
 import { ShareTodoListDto } from './dto/share-todo-list.dto'
+import { ApiTags } from '@nestjs/swagger'
 
+@ApiTags('ToDo Lists')
 @Controller('todo-lists')
 export class TodoListsController {
   constructor(private readonly todoListsService: TodoListsService) {}

@@ -13,7 +13,9 @@ import { UpdateTodoDto } from './dto/update-todo.dto'
 import { RequestWithUser } from '../shared.type'
 import { TodoListsService } from '../todo-lists/todo-lists.service'
 import { SkipAuth } from '../auth/decorators/skip-auth.decorator'
+import { ApiTags } from '@nestjs/swagger'
 
+@ApiTags('ToDos')
 @Controller('todos')
 export class TodosController {
   constructor(

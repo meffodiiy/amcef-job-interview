@@ -11,7 +11,9 @@ import { AuthService } from './auth.service'
 import { UsersService } from '../users/users.service'
 import { CredentialsDto } from './dto/credentials.dto'
 import { SkipAuth } from './decorators/skip-auth.decorator'
+import { ApiParam, ApiTags } from '@nestjs/swagger'
 
+@ApiTags('Authorization')
 @Controller('auth')
 export class AuthController {
   constructor(
@@ -19,6 +21,11 @@ export class AuthController {
     private readonly usersService: UsersService
   ) {}
 
+  @ApiParam({
+    name: 'Authorization',
+    required: false,
+    description: '(Leave empty. Use lock icon on the top-right to authorize)',
+  })
   @SkipAuth()
   @HttpCode(HttpStatus.CREATED)
   @Post('signup')
@@ -31,6 +38,11 @@ export class AuthController {
     return this.authService.signUp(credentialsDto)
   }
 
+  @ApiParam({
+    name: 'Authorization',
+    required: false,
+    description: '(Leave empty. Use lock icon on the top-right to authorize)',
+  })
   @SkipAuth()
   @HttpCode(HttpStatus.OK)
   @Post('login')
